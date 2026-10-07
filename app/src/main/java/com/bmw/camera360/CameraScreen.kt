@@ -142,7 +142,7 @@ fun CameraScreen(context: Context) {
                 Text("Foto ${capturedFrames.size + 1}/38: arah ${next.yaw.toInt()}°, tinggi ${next.elevation.toInt()}°", color = Color.White)
                 Text(if (aimed) "Posisi sesuai — potret sekarang" else "Putar HP hingga posisi sesuai", color = if (aimed) Color.Green else Color.Yellow)
             } else {
-                Text("38 arah terpotret. Siap memproses.", color = Color.Green)
+                Text("38 arah selesai. Simpan JPG atau ambil foto tambahan.", color = Color.Green)
             }
         }
 
@@ -170,7 +170,7 @@ fun CameraScreen(context: Context) {
                                     Toast.makeText(context, "Gagal memotret: ${exc.message}", Toast.LENGTH_LONG).show()
                                 }
                             })
-                    }, enabled = aimed && !takingPicture && !processing) { Text("Potret") }
+                    }, enabled = (aimed || next == null) && !takingPicture && !processing) { Text(if (next == null) "Foto tambahan" else "Potret") }
                     Button(onClick = {
                         processing = true
                         scope.launch {
