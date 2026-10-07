@@ -7,7 +7,7 @@
         android:allowBackup="true"
         android:icon="@android:drawable/ic_menu_camera"
         android:label="BMW 360 Camera"
-        android:theme="@android:style/Theme.Material.NoTitleBar.Fullscreen">
+        android:theme="@android:style/Theme.Material.Light.NoActionBar">
         <activity
             android:name=".MainActivity"
             android:exported="true"
