@@ -1,4 +1,4 @@
-﻿package com.bmw.camera360
+package com.bmw.camera360
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -12,30 +12,21 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
-import org.opencv.android.OpenCVLoader
 
 class MainActivity : ComponentActivity() {
-
     private val cameraPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
-        if (isGranted) {
-            setupUI()
-        } else {
-            Toast.makeText(this, "Izin kamera dibutuhkan untuk memotret panorama.", Toast.LENGTH_LONG).show()
-        }
+        if (isGranted) setupUI()
+        else Toast.makeText(this, "Izin kamera dibutuhkan.", Toast.LENGTH_LONG).show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        OpenCVLoader.initDebug()
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            setupUI()
-        } else {
-            cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
-        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+            == PackageManager.PERMISSION_GRANTED
+        ) setupUI()
+        else cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
     }
 
     private fun setupUI() {
